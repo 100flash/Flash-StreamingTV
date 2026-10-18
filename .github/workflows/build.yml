@@ -11,10 +11,13 @@ jobs:
           java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
+          channel: 'stable'
+          cache: true
+      # ESTO TE FALTABA - Crea la carpeta android si no existe
+      - run: flutter create . --platforms=android --project-name flash_tv
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter build apk --debug
       - uses: actions/upload-artifact@v4
         with:
           name: Flash-APK
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
